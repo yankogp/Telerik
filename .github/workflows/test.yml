@@ -18,7 +18,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
 
-
+  test:
   name: "Setup editorconfig-checker"
   description: "Downloads the editorconfig-checker binary by version number and adds it to your PATH"
   author: "Kasper Hesthaven"
