@@ -61,6 +61,8 @@ runs:
         fi
       shell: bash
 
+      name:
+
     - name: Download & add to path
       run: |
         echo "Making $POSIX_PATH and changing into it"
