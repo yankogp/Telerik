@@ -58,12 +58,9 @@ jobs:
   deploy:
     name: EditorConfig Checker
     runs-on: ubuntu-latest    
-    
-      editorconfig:
-        runs-on: ubuntu-20.04
-        steps:
-          - uses: actions/checkout@v2
-          - uses: editorconfig-checker/action-editorconfig-checker@main
-          - run: editorconfig-checker    
+    steps:
+      - uses: actions/checkout@v2
+      - uses: editorconfig-checker/action-editorconfig-checker@main
+      - run: editorconfig-checker    
         
     
