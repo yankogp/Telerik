@@ -40,8 +40,9 @@ jobs:
 
   
   build:
-    runs-on: ubuntu-latest
     name: Executes pylint
+    runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -55,8 +56,15 @@ jobs:
           pr-message: true # Send a PR message if pylint errors are found
 
   deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "🎉Deploy"
+    name: EditorConfig Checker
+    runs-on: ubuntu-latest    
+
+    jobs:
+      editorconfig:
+        runs-on: ubuntu-20.04
+        steps:
+          - uses: actions/checkout@v2
+          - uses: editorconfig-checker/action-editorconfig-checker@main
+          - run: editorconfig-checker    
         
     
