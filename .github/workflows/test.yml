@@ -55,7 +55,7 @@ jobs:
           fail: true # Fail the action if pylint errors are found
           pr-message: true # Send a PR message if pylint errors are found
 
-  deploy:
+  test:
     name: "Setup editorconfig-checker"
     description: "Downloads the editorconfig-checker binary by version number and adds it to your PATH"
     author: "Kasper Hesthaven"
