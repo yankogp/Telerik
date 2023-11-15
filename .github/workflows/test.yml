@@ -76,7 +76,6 @@ jobs:
   test5:  
     name: Python Unit Test
     runs-on: ubuntu-latest
-    on: [push]        
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-python@v2
