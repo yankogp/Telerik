@@ -2,7 +2,7 @@ name: GitHub Actions
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-  buils:
+  build:
     name: For Example
     runs-on: ubuntu-latest
     steps:
@@ -39,7 +39,7 @@ jobs:
 
 
   
-  build:
+  test2:
     name: Executes pylint
     runs-on: ubuntu-latest
     
@@ -55,5 +55,7 @@ jobs:
           fail: true # Fail the action if pylint errors are found
           pr-message: true # Send a PR message if pylint errors are found
 
+
+  
   
     
