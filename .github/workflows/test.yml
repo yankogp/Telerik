@@ -58,8 +58,7 @@ jobs:
   deploy:
     name: EditorConfig Checker
     runs-on: ubuntu-latest    
-
-    jobs:
+    
       editorconfig:
         runs-on: ubuntu-20.04
         steps:
