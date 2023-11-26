@@ -19,7 +19,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
   test1: 
-    name: Checkout repository
+    name: editorconfig-checker 
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.4
@@ -28,7 +28,8 @@ jobs:
       with:
           version: "2.1.0" # (Optional) Defaults to latest if not set
     - name: Lint
-      run: editorconfig-checker   
+      run: editorconfig-checker  
+      uses: /mnt/d/tmp/1/.editorconfig 
 
   test2: 
     name: Using Ruff to lint code
@@ -49,8 +50,8 @@ jobs:
         ruff --output-format=github .
       continue-on-error: true
 
-
   
+
   test3:
     name: Executes pylint
     runs-on: ubuntu-latest
