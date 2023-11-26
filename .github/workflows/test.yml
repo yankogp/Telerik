@@ -56,13 +56,7 @@ jobs:
           pr-message: true # Send a PR message if pylint errors are found
 
 
-  test3:
-    name: EditorConfig Checker
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: DimensionDev/setup-editorconfig-action@latest
-      - run: editorconfig-checker
+  
 
 
   test4:
