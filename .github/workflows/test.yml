@@ -93,6 +93,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt          
       - name: Test with unittest
+        uses: app/app_test.py
         run: python -m unittest
     
 
