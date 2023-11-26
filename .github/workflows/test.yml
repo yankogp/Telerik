@@ -18,59 +18,19 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  test1: 
-    
-    name: "Setup editorconfig-checker"
-    description: "Downloads the editorconfig-checker binary by version number and adds it to your PATH"
-    author: "Kasper Hesthaven"
-
-    inputs:
-      version:
-        description: "Version to download, e.g., 2.1.0 or 2.0.4. (default: latest)"
-        required: false
-      command-name:
-        description: "Set editorconfig-checker command name, e.g., 'ec'. (default: editorconfig-checker)"
-        required: false
-        default: "editorconfig-checker"
-
-    runs:
-      using: "composite"
+  test1:        
+    - name: Checkout repository
+      runs-on: ubuntu-latest  
       steps:
-        - name: Assign latest version if version not provided
-          run: |
-            if [ -z ${{ inputs.version }} ]; then
-                echo "VERSION=$(curl -s "https://api.github.com/repos/editorconfig-checker/editorconfig-checker/releases/latest" --header 'authorization: Bearer ${{ github.token }}' | jq -r .tag_name)" >> $GITHUB_ENV
-            else
-                echo "VERSION=${{ inputs.version }}" >> $GITHUB_ENV
-            fi
-          shell: bash
+      - uses: actions/checkout@v2.3.4
 
-        - name: Assign runner env
-          run: |
-            if [ ${{ runner.os }} == "Windows" ]; then
-               echo "OS=windows" >> $GITHUB_ENV
-               echo "EXTENSION=.exe" >> $GITHUB_ENV
-               echo "POSIX_PATH=$(echo "/${{ runner.temp }}\ec" | sed -e 's/\\/\//g' -e 's/://' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-               echo "FINAL_PATH=${{ runner.temp }}\ec" >> $GITHUB_ENV
-            else
-               echo "OS=$(uname -s | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-               echo "POSIX_PATH=${{ runner.temp }}/ec" >> $GITHUB_ENV
-               echo "FINAL_PATH=${{ runner.temp }}/ec" >> $GITHUB_ENV
-            fi
-          shell: bash
+    - name: Install editorconfig-checker
+      uses: kasperhesthaven/setup-editorconfig-checker@v1.2.0
+      with:
+          version: "2.1.0" # (Optional) Defaults to latest if not set
 
-        - name: Download & add to path
-          run: |
-            echo "Making $POSIX_PATH and changing into it"
-            mkdir -p $POSIX_PATH && cd "$_"
-            echo "Downloading editorconfig-checker version $VERSION for $OS-amd64 from https://github.com/editorconfig-checker/editorconfig-checker/releases/download/$VERSION/ec-$OS-amd64$EXTENSION.tar.gz"
-            curl -L https://github.com/editorconfig-checker/editorconfig-checker/releases/download/$VERSION/ec-$OS-amd64$EXTENSION.tar.gz | tar zx --strip-components 1
-            echo "Renaming ec-$OS-amd64$EXTENSION to ${{ inputs.command-name }}$EXTENSION"
-            mv ec-$OS-amd64$EXTENSION ${{ inputs.command-name }}$EXTENSION
-            echo "Adding $FINAL_PATH to path"
-            echo "$FINAL_PATH" >> $GITHUB_PATH
-          shell: bash     
-
+    - name: Lint
+      run: editorconfig-checker
 
 
 
