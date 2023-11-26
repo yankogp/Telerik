@@ -35,6 +35,7 @@ jobs:
 
     runs:
       using: "composite"
+      steps:
         - name: Assign latest version if version not provided
           run: |
             if [ -z ${{ inputs.version }} ]; then
