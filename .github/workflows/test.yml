@@ -24,7 +24,7 @@ jobs:
     steps:
     - uses: wow-rp-addons/actions-editorconfig-check@v1
       with:
-        args: - /mnt/d/tmp/1/editorconfig      
+        args:   
 
   test2: 
     name: Using Ruff to lint code
