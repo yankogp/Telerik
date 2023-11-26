@@ -18,7 +18,15 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  test: 
+  test1: 
+    name: EditorConfig Checker
+    runs-on: ubuntu-latest
+    steps:
+    - uses: wow-rp-addons/actions-editorconfig-check@v1
+      with:
+        args: - /mnt/d/tmp/1/editorconfig      
+
+  test2: 
     name: Using Ruff to lint code
     runs-on: ubuntu-latest    
     steps:
@@ -39,7 +47,7 @@ jobs:
 
 
   
-  test2:
+  test3:
     name: Executes pylint
     runs-on: ubuntu-latest
     
@@ -74,7 +82,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: '3.10'
       - name: Test
         uses: onichandame/python-test-action@master
         with:
