@@ -135,21 +135,13 @@ jobs:
     name: Vulnerability Scan with Trivy
     runs-on: ubuntu-latest
     steps:
-      - uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: 'docker.io/library/image:git-commit-sha'
-          format: 'sarif'
-          output: 'trivy-image-results.sarif'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+      - name: Pull docker image
+        run: docker pull sample
 
-      - name: Upload Trivy Image scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
+      - uses: lazy-actions/gitrivy@v3
         with:
-          sarif_file: 'trivy-image-results.sarif'
-          category: 'image'        
+          token: ${{ secrets.GITHUB_TOKEN }}
+          image: sample        
         
 
     
