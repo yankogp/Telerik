@@ -107,6 +107,14 @@ jobs:
           fetch-depth: 0
       - uses: gitleaks/gitleaks-action@v2
 
+
+  test7:
+    name: SAST test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: sonarsource/sonarcloud-github-action@master    
+
     
 
     
