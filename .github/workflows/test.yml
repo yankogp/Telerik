@@ -139,7 +139,7 @@ jobs:
         run: actions/checkout@v3
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.7.1
         with:
           image-ref: 'docker.io/library/image:git-commit-sha'
           format: 'table'
