@@ -128,7 +128,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag Git commit SHA
+        run: docker build . -t --file Dockerfile --tag Git commit SHA
               
         
 
