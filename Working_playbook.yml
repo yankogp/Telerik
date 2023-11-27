@@ -1,0 +1,70 @@
+- hosts: localhost
+  gather_facts: no
+  become: no
+
+  vars: 
+    image_name: "dockerize-flask-app"
+    image_tag: "0.2"
+    application_directory: "/mnt/d/tmp/flask-docker"
+    
+    
+  tasks:
+    - name: Create code directory
+      file: 
+        dest: "{{ application_directory }}"
+        state: directory
+
+
+    - name: Install Python libaries
+      pip: 
+        chdir: "{{ application_directory }}"
+        requirements: requirements.txt
+        state: present
+    
+
+    - name: Creating Docker Image
+      docker_image:
+        build:
+          path: "{{ application_directory }}"
+        name: "{{ image_name }}"
+        tag: "{{ image_tag }}"        
+        source: build        
+        state: present      
+    
+
+    - name: Login to Docker Hub
+      command: docker login
+
+
+    - name: Push Docker image to Registry
+      docker_image:
+        name: "{{ image_name }}" 
+        build:
+          path: "{{ application_directory }}"
+          pull: true
+        state: present
+        tag: "{{ image_tag }}" 
+        force_tag: yes
+        repository: yankogp/telerik
+        push: yes
+        source: build  
+
+
+    - name: Run the built Docker image
+      docker_container:
+        name: "dockerize-flask-app"
+        image: "{{ image_name }}:{{ image_tag }}"
+        state: started
+        auto_remove: yes
+        ports:
+          - "5001:5001"
+        env:
+          PORT: "5001"
+        healthcheck:
+          test: ["CMD", "curl", "--fail", "http://localhost:5001"]
+          interval: 10s
+          retries: 3
+          start_period: 5s
+        
+        
+          
