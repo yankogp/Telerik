@@ -133,7 +133,7 @@ jobs:
 
   test10:
     name: Vulnerability Scan with Trivy
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: aquasecurity/trivy-action@master
         with:
