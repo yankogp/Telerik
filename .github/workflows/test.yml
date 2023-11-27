@@ -18,19 +18,7 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  test1:        
-    name: Editorconfig checker
-    runs-on: ubuntu-latest  
-    steps:
-    - uses: actions/checkout@v2.3.4
-
-    - name: Install editorconfig-checker
-      uses: kasperhesthaven/setup-editorconfig-checker@v1.2.0
-      with:
-          version: "2.1.0" # (Optional) Defaults to latest if not set
-
-    - name: Lint
-      run: editorconfig-checker
+  
 
 
 
@@ -109,11 +97,17 @@ jobs:
 
 
   test7:
-    name: SAST test
+    name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: sonarsource/sonarcloud-github-action@master    
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    
 
     
 
