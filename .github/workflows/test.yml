@@ -94,7 +94,7 @@ jobs:
           pip install -r requirements.txt          
       - name: Test with unittest  
         working-directory: ./app      
-        run: python -m unittest
+        run: python -m unittest app_test.py
 
     
 
