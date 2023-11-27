@@ -135,13 +135,18 @@ jobs:
     name: Vulnerability Scan with Trivy
     runs-on: ubuntu-18.04
     steps:
-      - name: Pull docker image
-        run: docker pull sample
+      - name: Checkout code
+        run: actions/checkout@v3
 
-      - uses: dataswift/gha-trivy@v3.0.0
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          image: sample      
+          image-ref: 'docker.io/library/image:git-commit-sha'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
               
         
 
