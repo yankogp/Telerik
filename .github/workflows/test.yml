@@ -129,6 +129,19 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build image
         run: docker build --file Dockerfile  --tag image:git-commit-sha .
+
+
+  test10:
+    name: Vulnerability Scan with Trivy
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Pull docker image
+        run: docker pull sample
+
+      - uses: dataswift/gha-trivy@v3.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          image: sample      
               
         
 
