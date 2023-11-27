@@ -96,6 +96,17 @@ jobs:
         working-directory: ./app      
         run: python -m unittest app_test.py
 
+
+
+  test6:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+
     
 
     
