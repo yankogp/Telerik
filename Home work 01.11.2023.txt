@@ -1,1 +1,1 @@
-Link for Docker Hub Repo https://hub.docker.com/repositories/yankogp
+Link for Docker Hub Repo https://https://hub.docker.com/repository/docker/yankogp/telerik/general
